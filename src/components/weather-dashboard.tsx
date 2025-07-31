@@ -314,22 +314,6 @@ export function WeatherDashboard() {
                   ))}
             </CardContent>
           </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Weather Map</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Image
-                src="https://placehold.co/400x200.png"
-                alt="Weather map"
-                width={400}
-                height={200}
-                data-ai-hint="world map"
-                className="w-full h-auto rounded-lg"
-              />
-            </CardContent>
-          </Card>
         </div>
       </main>
     </div>
