@@ -23,7 +23,7 @@ export function WeatherDashboard() {
   const [isAnimating, setIsAnimating] = useState(false);
   const { toast } = useToast();
 
-  const otherCitiesList = ["New York", "London", "Tokyo", "Paris", "Sydney"];
+  const otherCitiesList = ["New York", "London", "Tokyo", "Paris", "Sydney", "Jakarta"];
 
   const fetchAllWeatherData = useCallback(
     async (city: string) => {
@@ -49,7 +49,7 @@ export function WeatherDashboard() {
         setForecastData(null);
       } finally {
         setLoading(false);
-        setTimeout(() => setIsAnimating(false), 500); // Animation duration
+        setTimeout(() => setIsAnimating(false), 1000); // Animation duration
       }
     },
     [toast]
@@ -72,18 +72,21 @@ export function WeatherDashboard() {
             {/* Sidebar Skeleton */}
             <div className="md:col-span-1 lg:col-span-1 flex flex-col gap-6">
                 <Skeleton className="h-40 rounded-2xl" />
-                <Skeleton className="h-64 rounded-2xl" />
+                <Skeleton className="h-12 rounded-2xl" />
                 <Skeleton className="flex-1 rounded-2xl" />
             </div>
             {/* Main Content Skeleton */}
             <div className="md:col-span-2 lg:col-span-3 flex flex-col gap-6">
-                 <Skeleton className="h-16 w-full rounded-2xl" />
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <Skeleton className="h-32 rounded-2xl" />
                     <Skeleton className="h-32 rounded-2xl" />
                     <Skeleton className="h-32 rounded-2xl" />
                     <Skeleton className="h-32 rounded-2xl" />
                 </div>
-                <Skeleton className="flex-1 rounded-2xl" />
+                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <Skeleton className="h-64 rounded-2xl lg:col-span-2" />
+                    <Skeleton className="h-64 rounded-2xl lg:col-span-1" />
+                </div>
             </div>
         </div>
     );
@@ -124,7 +127,7 @@ export function WeatherDashboard() {
   const weatherGradientClass = getWeatherGradient(weatherData?.weather[0].main);
 
   return (
-    <div className={`w-full h-full max-w-6xl mx-auto bg-gradient-to-br ${weatherGradientClass} rounded-3xl shadow-2xl overflow-hidden transition-colors duration-1000`}>
+    <div className={`w-full h-full min-h-screen max-w-7xl mx-auto bg-gradient-to-br ${weatherGradientClass} rounded-3xl shadow-2xl overflow-hidden transition-colors duration-1000`}>
        <div className={`flex flex-col md:flex-row w-full h-full bg-black/10 backdrop-blur-sm transition-opacity duration-1000 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
         <div className="w-full md:flex">
             <Sidebar
