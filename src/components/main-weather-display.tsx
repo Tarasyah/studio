@@ -48,17 +48,7 @@ export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDis
                         <p className="text-3xl font-bold">{weatherData.main.humidity}<span className="text-lg">%</span></p>
                     </CardContent>
                 </Card>
-                <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
-                    <CardHeader className="p-0 mb-2">
-                        <CardTitle className="text-sm font-medium text-white/80 flex justify-between items-center">
-                            Air Pressure <Gauge className="w-5 h-5" />
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-0">
-                        <p className="text-3xl font-bold">{weatherData.main.pressure}<span className="text-lg">hPa</span></p>
-                    </CardContent>
-                </Card>
-                 <Card className="bg-white/10 border-white/20 p-4 rounded-2xl col-span-1 sm:col-span-2 lg:col-span-4">
+                 <Card className="bg-white/10 border-white/20 p-4 rounded-2xl col-span-1 sm:col-span-2 lg:col-span-2">
                     <CardHeader className="p-0 mb-2">
                         <CardTitle className="text-sm font-medium text-white/80">Sunrise & Sunset</CardTitle>
                     </CardHeader>
@@ -75,6 +65,16 @@ export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDis
                                 <p className="font-semibold text-lg">{format(new Date(weatherData.sys.sunset * 1000), 'h:mm a')}</p>
                             </div>
                         </div>
+                    </CardContent>
+                </Card>
+                <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
+                    <CardHeader className="p-0 mb-2">
+                        <CardTitle className="text-sm font-medium text-white/80 flex justify-between items-center">
+                            Air Pressure <Gauge className="w-5 h-5" />
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                        <p className="text-3xl font-bold">{weatherData.main.pressure}<span className="text-lg">hPa</span></p>
                     </CardContent>
                 </Card>
             </div>
