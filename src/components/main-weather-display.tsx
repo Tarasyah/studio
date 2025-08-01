@@ -48,25 +48,6 @@ export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDis
                         <p className="text-3xl font-bold">{weatherData.main.humidity}<span className="text-lg">%</span></p>
                     </CardContent>
                 </Card>
-                 <Card className="bg-white/10 border-white/20 p-4 rounded-2xl col-span-1 sm:col-span-2 lg:col-span-2">
-                    <CardHeader className="p-0 mb-2">
-                        <CardTitle className="text-sm font-medium text-white/80">Sunrise & Sunset</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-0 flex items-center gap-6">
-                        <div className="flex items-center gap-3">
-                            <Sunrise className="w-10 h-10 text-yellow-300" />
-                            <div>
-                                <p className="font-semibold text-lg">{format(new Date(weatherData.sys.sunrise * 1000), 'h:mm a')}</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Sunset className="w-10 h-10 text-orange-400" />
-                             <div>
-                                <p className="font-semibold text-lg">{format(new Date(weatherData.sys.sunset * 1000), 'h:mm a')}</p>
-                            </div>
-                        </div>
-                    </CardContent>
-                </Card>
                 <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
                     <CardHeader className="p-0 mb-2">
                         <CardTitle className="text-sm font-medium text-white/80 flex justify-between items-center">
@@ -75,6 +56,25 @@ export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDis
                     </CardHeader>
                     <CardContent className="p-0">
                         <p className="text-3xl font-bold">{weatherData.main.pressure}<span className="text-lg">hPa</span></p>
+                    </CardContent>
+                </Card>
+                 <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
+                    <CardHeader className="p-0 mb-2">
+                        <CardTitle className="text-sm font-medium text-white/80">Sunrise & Sunset</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0 flex flex-col items-center justify-center gap-2">
+                        <div className="flex items-center gap-2">
+                            <Sunrise className="w-6 h-6 text-yellow-300" />
+                            <div>
+                                <p className="font-semibold">{format(new Date(weatherData.sys.sunrise * 1000), 'h:mm a')}</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Sunset className="w-6 h-6 text-orange-400" />
+                             <div>
+                                <p className="font-semibold">{format(new Date(weatherData.sys.sunset * 1000), 'h:mm a')}</p>
+                            </div>
+                        </div>
                     </CardContent>
                 </Card>
             </div>
