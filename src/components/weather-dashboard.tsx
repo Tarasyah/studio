@@ -15,14 +15,14 @@ import { Sidebar } from "./sidebar";
 import { Skeleton } from "./ui/skeleton";
 
 export function WeatherDashboard() {
-  const [currentCity, setCurrentCity] = useState("New York");
+  const [currentCity, setCurrentCity] = useState("Rio de Janeiro");
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [forecastData, setForecastData] = useState<ForecastData | null>(null);
   const [otherCities, setOtherCities] = useState<OtherCityData[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
-  const otherCitiesList = ["Tokyo", "London", "Paris", "Sydney", "Dhaka"];
+  const otherCitiesList = ["New York", "London", "Tokyo", "Paris", "Sydney"];
 
   const fetchAllWeatherData = useCallback(
     async (city: string) => {
@@ -54,7 +54,7 @@ export function WeatherDashboard() {
 
   useEffect(() => {
     fetchAllWeatherData(currentCity);
-  }, [fetchAllWeatherData]);
+  }, []);
 
   const handleCityChange = (newCity: string) => {
     setCurrentCity(newCity);
@@ -63,35 +63,26 @@ export function WeatherDashboard() {
   
   if (loading || !weatherData || !forecastData) {
     return (
-      <div className="flex h-screen w-full bg-background">
-        <div className="w-full md:w-1/4 bg-gray-900/50 p-6 hidden md:flex flex-col">
+      <div className="flex flex-col md:flex-row h-screen w-full max-w-4xl mx-auto bg-white dark:bg-black shadow-lg rounded-lg overflow-hidden">
+        <div className="w-full md:w-1/3 bg-gray-100 dark:bg-gray-900 p-6 flex flex-col justify-between">
             <Skeleton className="h-8 w-32 mb-8 rounded-md" />
+            <Skeleton className="h-20 w-full mb-8 rounded-md" />
             <Skeleton className="h-6 w-24 mb-6 rounded-md" />
             <div className="space-y-4">
-                {Array.from({length: 5}).map((_, i) => <Skeleton key={i} className="h-10 w-full rounded-md" />)}
+                {Array.from({length: 5}).map((_, i) => <Skeleton key={i} className="h-12 w-full rounded-md" />)}
             </div>
         </div>
-        <div className="flex-1 p-6 md:p-10">
-            <Skeleton className="h-12 w-full mb-8 rounded-md" />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <Skeleton className="h-24 w-1/2 mb-4 rounded-md" />
-                    <Skeleton className="h-10 w-3/4 mb-8 rounded-md" />
-                    <div className="flex gap-4">
-                        <Skeleton className="h-24 w-20 rounded-md" />
-                        <Skeleton className="h-24 w-20 rounded-md" />
-                        <Skeleton className="h-24 w-20 rounded-md" />
-                    </div>
-                </div>
-                <div>
-                     <Skeleton className="h-48 w-full rounded-lg" />
-                </div>
+        <div className="flex-1 p-6 md:p-10 bg-gray-50 dark:bg-gray-800">
+            <Skeleton className="h-8 w-48 mb-8 rounded-md" />
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                {Array.from({length: 8}).map((_, i) => <Skeleton key={i} className="h-24 w-full rounded-md" />)}
             </div>
-             <Skeleton className="h-32 w-full mt-8 rounded-lg" />
+            <Skeleton className="h-48 w-full rounded-lg" />
         </div>
       </div>
     );
   }
+
 
   const getWeatherGradient = (weatherMain?: string) => {
     switch (weatherMain?.toLowerCase()) {
@@ -101,7 +92,7 @@ export function WeatherDashboard() {
         return "from-slate-500 to-gray-400";
       case "rain":
       case "drizzle":
-        return "from-indigo-600 to-purple-700";
+        return "from-indigo-500 to-purple-600";
       case "thunderstorm":
         return "from-gray-700 to-indigo-800";
       case "snow":
@@ -123,10 +114,10 @@ export function WeatherDashboard() {
   const weatherGradientClass = getWeatherGradient(weatherData?.weather[0].main);
 
   return (
-    <div className={`flex h-screen w-full bg-gradient-to-br ${weatherGradientClass} transition-colors duration-1000`}>
+    <div className={`w-full max-w-md md:max-w-4xl mx-auto bg-gradient-to-br ${weatherGradientClass} rounded-3xl shadow-2xl overflow-hidden`}>
        <div className="flex flex-col md:flex-row w-full h-full bg-black/10 backdrop-blur-sm">
         <Sidebar
-          currentCity={currentCity}
+          weatherData={weatherData}
           otherCities={otherCities}
           onCitySelect={handleCityChange}
           onSearch={handleCityChange}
