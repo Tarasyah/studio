@@ -83,9 +83,9 @@ export function WeatherDashboard() {
                     <Skeleton className="h-32 rounded-2xl" />
                     <Skeleton className="h-32 rounded-2xl" />
                 </div>
-                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <Skeleton className="h-64 rounded-2xl lg:col-span-2" />
-                    <Skeleton className="h-64 rounded-2xl lg:col-span-1" />
+                 <div className="grid grid-cols-1 gap-6">
+                    <Skeleton className="h-64 rounded-2xl" />
+                    <Skeleton className="h-64 rounded-2xl" />
                 </div>
             </div>
         </div>
@@ -139,6 +139,7 @@ export function WeatherDashboard() {
             <MainWeatherDisplay
               weatherData={weatherData}
               forecastData={forecastData}
+              onSearch={handleCityChange}
             />
         </div>
        </div>

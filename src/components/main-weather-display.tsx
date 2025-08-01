@@ -7,14 +7,16 @@ import { WeatherData, ForecastData } from '@/lib/weather';
 import { format } from 'date-fns';
 import { Droplets, Gauge, Sunrise, Sunset, Wind } from 'lucide-react';
 import { ForecastChart } from './forecast-chart';
+import { SearchInput } from './search-input';
 
 
 interface MainWeatherDisplayProps {
   weatherData: WeatherData;
   forecastData: ForecastData;
+  onSearch: (city: string) => void;
 }
 
-export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDisplayProps) {
+export function MainWeatherDisplay({ weatherData, forecastData, onSearch }: MainWeatherDisplayProps) {
   const dailyForecasts = forecastData.list.filter((item) =>
     item.dt_txt.includes("12:00:00")
   ).slice(0, 7); // 7 day forecast
@@ -22,7 +24,7 @@ export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDis
   return (
     <main className="flex-1 p-4 md:p-6 grid grid-cols-1 gap-6 text-white">
         <div className="md:hidden">
-            {/* Search Input for mobile would go here if needed */}
+            <SearchInput onSearch={onSearch} />
         </div>
 
         <div>
@@ -80,8 +82,8 @@ export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDis
             </div>
         </div>
 
-      <div className="grid grid-cols-1 gap-6">
-        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl col-span-1 lg:col-span-3">
             <CardHeader className="p-0 mb-4">
                 <CardTitle className="text-lg font-semibold">Hourly Forecast</CardTitle>
             </CardHeader>
@@ -89,7 +91,7 @@ export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDis
                 <ForecastChart forecastData={forecastData} />
             </CardContent>
         </Card>
-        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
+        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl col-span-1 lg:col-span-3">
             <CardHeader className="p-0 mb-4">
                 <CardTitle className="text-lg font-semibold">7-Day Forecast</CardTitle>
             </CardHeader>
