@@ -20,6 +20,11 @@ export function Sidebar({ weatherData, otherCities, onCitySelect, onSearch }: Si
 
   return (
     <aside className="w-full md:w-1/3 lg:w-1/4 p-4 md:p-6 text-white flex flex-col gap-6">
+      {/* Search on mobile */}
+       <div className="md:hidden">
+        <SearchInput onSearch={onSearch} />
+      </div>
+
       {/* Current Weather */}
       <Card className="bg-white/10 border-white/20 p-4 flex flex-col items-center text-center rounded-2xl">
           <h1 className="text-xl font-bold">{weatherData.name}</h1>
@@ -31,13 +36,13 @@ export function Sidebar({ weatherData, otherCities, onCitySelect, onSearch }: Si
           <p className="text-base font-medium capitalize mt-1 text-white/90">{weatherData.weather[0].description}</p>
       </Card>
       
-      {/* Search */}
+      {/* Search on desktop/tablet */}
       <div className="hidden md:block">
         <SearchInput onSearch={onSearch} />
       </div>
 
       {/* Other Cities */}
-       <Card className="bg-white/10 border-white/20 p-4 rounded-2xl flex-1 flex flex-col">
+       <Card className="bg-white/10 border-white/20 p-4 rounded-2xl flex-1 flex-col hidden md:flex">
         <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 shrink-0"><MapPin className="w-5 h-5"/> Other Cities</h2>
         <div className="md:hidden lg:block space-y-2 flex-1">
            {otherCities.map((city) => (
@@ -85,4 +90,3 @@ export function Sidebar({ weatherData, otherCities, onCitySelect, onSearch }: Si
     </aside>
   );
 }
-

@@ -24,7 +24,7 @@ export function MainWeatherDisplay({ weatherData, forecastData, onSearch }: Main
   return (
     <main className="flex-1 p-4 md:p-6 grid grid-cols-1 gap-6 text-white">
         <div className="md:hidden">
-            <SearchInput onSearch={onSearch} />
+            {/* SearchInput is now in the sidebar for mobile */}
         </div>
 
         <div>
@@ -82,8 +82,8 @@ export function MainWeatherDisplay({ weatherData, forecastData, onSearch }: Main
             </div>
         </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl col-span-1 lg:col-span-3">
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
+        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl col-span-1 lg:col-span-1">
             <CardHeader className="p-0 mb-4">
                 <CardTitle className="text-lg font-semibold">Hourly Forecast</CardTitle>
             </CardHeader>
@@ -91,7 +91,7 @@ export function MainWeatherDisplay({ weatherData, forecastData, onSearch }: Main
                 <ForecastChart forecastData={forecastData} />
             </CardContent>
         </Card>
-        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl col-span-1 lg:col-span-3">
+        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl col-span-1 lg:col-span-1">
             <CardHeader className="p-0 mb-4">
                 <CardTitle className="text-lg font-semibold">7-Day Forecast</CardTitle>
             </CardHeader>
