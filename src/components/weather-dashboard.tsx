@@ -36,6 +36,7 @@ import {
   CloudSnow,
 } from "lucide-react";
 import { WeatherIcon } from "./weather-icon";
+import { WeatherMap } from "./weather-map";
 
 // Helper to format UNIX timestamp to a readable time string
 const formatTime = (timestamp: number, timezone: number) => {
@@ -73,7 +74,7 @@ export function WeatherDashboard() {
 
   const fetchOtherCitiesData = useCallback(async () => {
     try {
-      const cities = ["New York", "London", "Tokyo"];
+      const cities = ["New York", "London", "Tokyo", "Sydney", "Rio"];
       const data = await getCurrentWeatherForCities(cities);
       setOtherCities(data);
     } catch (err) {
@@ -161,12 +162,6 @@ export function WeatherDashboard() {
               className="pl-10 bg-white"
             />
           </form>
-          <Button variant="ghost" size="icon" className="hidden sm:inline-flex">
-            <Bell className="h-5 w-5" />
-          </Button>
-          <Button variant="ghost" size="icon" className="hidden sm:inline-flex">
-            <User className="h-5 w-5" />
-          </Button>
         </div>
       </header>
 
@@ -230,6 +225,8 @@ export function WeatherDashboard() {
               ) : null}
             </CardContent>
           </Card>
+
+          <WeatherMap cities={otherCities} onCityClick={(city) => fetchWeatherData(city.name)} />
 
           <Card>
             <CardHeader>

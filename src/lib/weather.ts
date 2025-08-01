@@ -117,12 +117,16 @@ export async function getCurrentWeatherForCities(cities: string[]): Promise<Othe
     checkApiKey();
     const requests = cities.map(city => {
         const url = `${API_BASE_URL}/weather?q=${city}&appid=${API_KEY}&units=metric`;
-        return fetcher<WeatherData>(url);
+        return fetcher<WeatherData>(url).catch(e => {
+            console.error(`Failed to fetch weather for ${city}`, e);
+            return null; // Return null on failure
+        });
     });
 
     try {
         const results = await Promise.all(requests);
-        return results.map(({ name, main, weather }) => ({ name, main, weather }));
+        // Filter out null results and map to the required format
+        return results.filter(r => r !== null).map(({ name, main, weather }) => ({ name, main, weather })) as OtherCityData[];
     } catch (error) {
         console.error("Failed to fetch weather for multiple cities:", error);
         // Return empty array or handle as needed
