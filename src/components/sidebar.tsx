@@ -39,7 +39,7 @@ export function Sidebar({ weatherData, otherCities, onCitySelect, onSearch }: Si
       {/* Other Cities */}
        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl flex-1 flex flex-col">
         <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 shrink-0"><MapPin className="w-5 h-5"/> Other Cities</h2>
-        <div className="md:hidden lg:block space-y-3 flex-1">
+        <div className="md:hidden lg:block space-y-2 flex-1">
            {otherCities.map((city) => (
             <Card 
                 key={city.name} 
@@ -48,19 +48,19 @@ export function Sidebar({ weatherData, otherCities, onCitySelect, onSearch }: Si
             >
               <div className="flex justify-between items-center">
                 <div>
-                    <p className="font-semibold text-base">{city.name}</p>
-                    <p className="text-sm text-white/70">{city.weather[0].main}</p>
+                    <p className="font-medium text-sm">{city.name}</p>
+                    <p className="text-xs text-white/70">{city.weather[0].main}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-lg">{Math.round(city.main.temp)}°</span>
-                  <WeatherIcon iconCode={city.weather[0].icon} className="w-8 h-8" />
+                  <span className="font-semibold text-base">{Math.round(city.main.temp)}°</span>
+                  <WeatherIcon iconCode={city.weather[0].icon} className="w-7 h-7" />
                 </div>
               </div>
             </Card>
           ))}
         </div>
          <ScrollArea className="hidden md:block lg:hidden flex-1 [&>div]:h-full">
-            <div className="space-y-3 pr-2">
+            <div className="space-y-2 pr-2">
               {otherCities.map((city) => (
                 <Card 
                     key={city.name} 
@@ -69,12 +69,12 @@ export function Sidebar({ weatherData, otherCities, onCitySelect, onSearch }: Si
                 >
                   <div className="flex justify-between items-center">
                     <div>
-                        <p className="font-semibold text-base">{city.name}</p>
-                        <p className="text-sm text-white/70">{city.weather[0].main}</p>
+                        <p className="font-medium text-sm">{city.name}</p>
+                        <p className="text-xs text-white/70">{city.weather[0].main}</p>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-lg">{Math.round(city.main.temp)}°</span>
-                      <WeatherIcon iconCode={city.weather[0].icon} className="w-8 h-8" />
+                      <span className="font-semibold text-base">{Math.round(city.main.temp)}°</span>
+                      <WeatherIcon iconCode={city.weather[0].icon} className="w-7 h-7" />
                     </div>
                   </div>
                 </Card>
@@ -85,3 +85,4 @@ export function Sidebar({ weatherData, otherCities, onCitySelect, onSearch }: Si
     </aside>
   );
 }
+
