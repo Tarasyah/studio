@@ -5,8 +5,7 @@ import { Card } from './ui/card';
 import { WeatherIcon } from './weather-icon';
 import { OtherCityData, WeatherData } from '@/lib/weather';
 import { format } from 'date-fns';
-import { MapPin, Droplets, Wind, Search } from 'lucide-react';
-import { Button } from './ui/button';
+import { MapPin } from 'lucide-react';
 import { SearchInput } from './search-input';
 
 interface SidebarProps {
@@ -39,7 +38,7 @@ export function Sidebar({ weatherData, otherCities, onCitySelect, onSearch }: Si
       {/* Other Cities */}
       <Card className="bg-white/10 border-white/20 p-4 rounded-2xl flex-1">
         <h2 className="text-lg font-semibold mb-4 flex items-center gap-2"><MapPin className="w-5 h-5"/> Other Cities</h2>
-        <div className="space-y-3 overflow-y-auto max-h-60 pr-2">
+        <div className="space-y-3 overflow-y-auto max-h-60 pr-2 md:pr-0 md:[&::-webkit-scrollbar]:hidden md:[-ms-overflow-style:none] md:[scrollbar-width:none]">
           {otherCities.map((city) => (
             <Card 
                 key={city.name} 
