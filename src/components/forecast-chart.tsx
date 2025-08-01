@@ -19,7 +19,7 @@ interface ForecastChartProps {
 
 export function ForecastChart({ forecastData }: ForecastChartProps) {
     const hourlyData = forecastData.list.slice(0, 8).map(item => ({
-        time: format(new Date(item.dt_txt), 'HH:mm'),
+        time: format(new Date(item.dt_txt), 'ha'),
         temp: Math.round(item.main.temp),
     }));
 
@@ -37,30 +37,30 @@ export function ForecastChart({ forecastData }: ForecastChartProps) {
         >
           <defs>
             <linearGradient id="colorTemp" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
-              <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+              <stop offset="5%" stopColor="rgba(255,255,255,0.6)" stopOpacity={0.6}/>
+              <stop offset="95%" stopColor="rgba(255,255,255,0.1)" stopOpacity={0}/>
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.2)" />
           <XAxis 
             dataKey="time" 
-            stroke="hsl(var(--muted-foreground))"
-            tick={{ fill: 'hsl(var(--foreground))', fontSize: 12 }}
-            tickLine={{ stroke: 'hsl(var(--muted-foreground))' }}
+            stroke="rgba(255,255,255,0.7)"
+            tick={{ fill: 'white', fontSize: 12 }}
+            tickLine={{ stroke: 'rgba(255,255,255,0.7)' }}
           />
           <YAxis 
-            stroke="hsl(var(--muted-foreground))"
-            tick={{ fill: 'hsl(var(--foreground))', fontSize: 12 }}
-            tickLine={{ stroke: 'hsl(var(--muted-foreground))' }}
+            stroke="rgba(255,255,255,0.7)"
+            tick={{ fill: 'white', fontSize: 12 }}
+            tickLine={{ stroke: 'rgba(255,255,255,0.7)' }}
             domain={['dataMin - 2', 'dataMax + 2']}
             tickFormatter={(value) => `${value}°`}
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: 'hsl(var(--card))',
-              border: '1px solid hsl(var(--border))',
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              border: '1px solid rgba(255,255,255,0.2)',
               borderRadius: '0.5rem',
-              color: 'hsl(var(--card-foreground))',
+              color: 'white',
             }}
             labelStyle={{ fontWeight: 'bold' }}
             formatter={(value: number) => [`${value}°C`, 'Temperature']}
@@ -68,9 +68,9 @@ export function ForecastChart({ forecastData }: ForecastChartProps) {
           <Area
             type="monotone"
             dataKey="temp"
-            stroke="hsl(var(--primary))"
+            stroke="white"
             fill="url(#colorTemp)"
-            strokeWidth={2}
+            strokeWidth={2.5}
           />
         </AreaChart>
       </ResponsiveContainer>

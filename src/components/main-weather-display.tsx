@@ -1,58 +1,113 @@
 
 "use client";
 import React from 'react';
-import { Card, CardContent } from './ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { WeatherIcon } from './weather-icon';
 import { WeatherData, ForecastData } from '@/lib/weather';
 import { format } from 'date-fns';
-import { SearchInput } from './search-input';
+import { Droplets, Gauge, Sunrise, Sunset, Wind } from 'lucide-react';
 import { ForecastChart } from './forecast-chart';
+
 
 interface MainWeatherDisplayProps {
   weatherData: WeatherData;
   forecastData: ForecastData;
-  onSearch: (city: string) => void;
 }
 
-export function MainWeatherDisplay({ weatherData, forecastData, onSearch }: MainWeatherDisplayProps) {
+export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDisplayProps) {
   const dailyForecasts = forecastData.list.filter((item) =>
     item.dt_txt.includes("12:00:00")
-  ).slice(0, 5);
+  ).slice(0, 7); // 7 day forecast
   
   return (
-    <main className="flex-1 p-6 bg-white dark:bg-gray-800 rounded-t-3xl md:rounded-t-none md:rounded-r-3xl overflow-y-auto">
-      <div className="hidden md:flex justify-between items-center mb-6">
-        <h1 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Weather Forecast</h1>
-        <div className="w-full md:w-auto">
-            <SearchInput onSearch={onSearch} />
+    <main className="flex-1 p-4 md:p-6 grid grid-cols-1 gap-6 text-white">
+        <div className="md:hidden">
+            {/* Search Input for mobile would go here if needed */}
         </div>
-      </div>
 
-      <div className='md:hidden mb-4'>
-        <SearchInput onSearch={onSearch} />
-      </div>
-      
-      <div>
-        <h2 className="font-semibold text-gray-700 dark:text-gray-300 mb-4">Hourly Forecast</h2>
-        <ForecastChart forecastData={forecastData} />
-      </div>
-
-      <div className="mt-8">
-        <h2 className="font-semibold text-gray-700 dark:text-gray-300 mb-4">Next 5 Days</h2>
-        <div className="space-y-3">
-        {dailyForecasts.map((item, index) => (
-          <Card key={index} className="bg-gray-100 dark:bg-gray-700/50 border-none p-3 rounded-lg">
-            <div className="flex items-center justify-between">
-              <p className="w-1/3 text-gray-600 dark:text-gray-300">{format(new Date(item.dt_txt), "EEEE")}</p>
-              <WeatherIcon iconCode={item.weather[0].icon} className="w-8 h-8 text-gray-700 dark:text-gray-300" />
-              <div className="w-1/3 text-right">
-                <span className="font-semibold text-gray-800 dark:text-white">{Math.round(item.main.temp_max)}°</span>
-                <span className="text-gray-500 dark:text-gray-400"> / {Math.round(item.main.temp_min)}°</span>
-              </div>
+        <div>
+            <h2 className="text-xl font-bold mb-4 px-2">Today's Highlights</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
+                    <CardHeader className="p-0 mb-2">
+                        <CardTitle className="text-sm font-medium text-white/80 flex justify-between items-center">
+                            Wind Status <Wind className="w-5 h-5" />
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                        <p className="text-3xl font-bold">{weatherData.wind.speed.toFixed(1)}<span className="text-lg">km/h</span></p>
+                    </CardContent>
+                </Card>
+                <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
+                     <CardHeader className="p-0 mb-2">
+                        <CardTitle className="text-sm font-medium text-white/80 flex justify-between items-center">
+                            Humidity <Droplets className="w-5 h-5" />
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                        <p className="text-3xl font-bold">{weatherData.main.humidity}<span className="text-lg">%</span></p>
+                    </CardContent>
+                </Card>
+                <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
+                    <CardHeader className="p-0 mb-2">
+                        <CardTitle className="text-sm font-medium text-white/80 flex justify-between items-center">
+                            Air Pressure <Gauge className="w-5 h-5" />
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                        <p className="text-3xl font-bold">{weatherData.main.pressure}<span className="text-lg">hPa</span></p>
+                    </CardContent>
+                </Card>
+                 <Card className="bg-white/10 border-white/20 p-4 rounded-2xl col-span-1 sm:col-span-2 lg:col-span-3">
+                    <CardHeader className="p-0 mb-2">
+                        <CardTitle className="text-sm font-medium text-white/80">Sunrise & Sunset</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0 flex items-center gap-6">
+                        <div className="flex items-center gap-3">
+                            <Sunrise className="w-10 h-10 text-yellow-300" />
+                            <div>
+                                <p className="font-semibold text-lg">{format(new Date(weatherData.sys.sunrise * 1000), 'h:mm a')}</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <Sunset className="w-10 h-10 text-orange-400" />
+                             <div>
+                                <p className="font-semibold text-lg">{format(new Date(weatherData.sys.sunset * 1000), 'h:mm a')}</p>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
-          </Card>
-        ))}
         </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
+            <CardHeader className="p-0 mb-4">
+                <CardTitle className="text-lg font-semibold">Hourly Forecast</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+                <ForecastChart forecastData={forecastData} />
+            </CardContent>
+        </Card>
+        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
+            <CardHeader className="p-0 mb-4">
+                <CardTitle className="text-lg font-semibold">7-Day Forecast</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+                <div className="space-y-2">
+                {dailyForecasts.map((item, index) => (
+                <div key={index} className="flex items-center justify-between p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+                    <p className="w-1/3 text-white/90 font-medium">{format(new Date(item.dt_txt), "iii, MMM d")}</p>
+                    <WeatherIcon iconCode={item.weather[0].icon} className="w-8 h-8 text-white" />
+                    <div className="w-1/3 text-right">
+                        <span className="font-semibold text-white">{Math.round(item.main.temp_max)}°</span>
+                        <span className="text-white/70"> / {Math.round(item.main.temp_min)}°</span>
+                    </div>
+                </div>
+                ))}
+                </div>
+            </CardContent>
+        </Card>
       </div>
     </main>
   );
