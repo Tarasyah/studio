@@ -23,7 +23,7 @@ export function WeatherDashboard() {
   const [isAnimating, setIsAnimating] = useState(false);
   const { toast } = useToast();
 
-  const otherCitiesList = ["New York", "London", "Tokyo", "Paris", "Sydney", "Jakarta", "Mecca"];
+  const otherCitiesList = ["New York", "London", "Tokyo", "Paris", "Sydney", "Jakarta", "Depok"];
 
   const fetchAllWeatherData = useCallback(
     async (city: string) => {
@@ -49,7 +49,7 @@ export function WeatherDashboard() {
         setForecastData(null);
       } finally {
         setLoading(false);
-        setTimeout(() => setIsAnimating(false), 1000); // Animation duration
+        setTimeout(() => setIsAnimating(false), 500); // Animation duration
       }
     },
     [toast]
@@ -128,7 +128,7 @@ export function WeatherDashboard() {
 
   return (
     <div className={`w-full h-full min-h-screen max-w-7xl mx-auto bg-gradient-to-br ${weatherGradientClass} rounded-3xl shadow-2xl overflow-hidden transition-colors duration-1000`}>
-       <div className={`flex flex-col md:flex-row w-full h-full bg-black/10 backdrop-blur-sm transition-opacity duration-1000 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
+       <div className={`flex flex-col md:flex-row w-full h-full bg-black/10 backdrop-blur-sm transition-opacity duration-500 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
         <div className="w-full md:flex">
             <Sidebar
               weatherData={weatherData}
