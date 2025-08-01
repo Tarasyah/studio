@@ -71,31 +71,31 @@ export function WeatherDashboard({ initialCity, onCityChange }: { initialCity: s
   };
 
   return (
-    <div className="w-full max-w-sm font-sans text-white">
-       <form onSubmit={handleSearch} className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-200" />
-            <Input
-              type="text"
-              placeholder="Search for a city..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-white/20 border-white/30 rounded-full shadow-sm placeholder-gray-200 focus:ring-2 focus:ring-white"
-            />
-        </form>
+    <div className="w-full max-w-sm font-sans text-white bg-white/10 backdrop-blur-md rounded-3xl shadow-lg border border-white/20">
+       <div className="p-6">
+          <form onSubmit={handleSearch} className="relative mb-4">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-200" />
+              <Input
+                type="text"
+                placeholder="Search for a city..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 bg-white/20 border-white/30 rounded-full shadow-sm placeholder-gray-200 focus:ring-2 focus:ring-white"
+              />
+          </form>
 
-      {error && (
-        <Alert variant="destructive" className="mb-4 bg-red-500/80 border-red-700 text-white">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
+        {error && (
+          <Alert variant="destructive" className="mb-4 bg-red-500/80 border-red-700 text-white">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
 
-      {loading ? (
-        <WeatherCardSkeleton />
-      ) : weatherData ? (
-        <div className="relative bg-transparent p-6">
-          <div className="relative z-10">
+        {loading ? (
+          <WeatherCardSkeleton />
+        ) : weatherData ? (
+          <div>
             <div className="flex justify-between items-start">
               <div>
                 <div className="flex items-center gap-2">
@@ -124,10 +124,10 @@ export function WeatherDashboard({ initialCity, onCityChange }: { initialCity: s
               </div>
             </div>
           </div>
-        </div>
-      ) : (
-         !error && <p>No weather data available.</p>
-      )}
+        ) : (
+           !error && <p>No weather data available.</p>
+        )}
+      </div>
     </div>
   );
 }
@@ -135,7 +135,7 @@ export function WeatherDashboard({ initialCity, onCityChange }: { initialCity: s
 
 function WeatherCardSkeleton() {
     return (
-        <div className="bg-white/10 animate-pulse rounded-3xl p-6 shadow-lg">
+        <div>
             <div className="flex justify-between items-start">
                 <div>
                     <div className="flex items-center gap-2">
