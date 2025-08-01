@@ -27,7 +27,7 @@ export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDis
 
         <div>
             <h2 className="text-xl font-bold mb-4 px-2">Today's Highlights</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
                     <CardHeader className="p-0 mb-2">
                         <CardTitle className="text-sm font-medium text-white/80 flex justify-between items-center">
@@ -58,7 +58,7 @@ export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDis
                         <p className="text-3xl font-bold">{weatherData.main.pressure}<span className="text-lg">hPa</span></p>
                     </CardContent>
                 </Card>
-                 <Card className="bg-white/10 border-white/20 p-4 rounded-2xl col-span-1 sm:col-span-2 lg:col-span-3">
+                 <Card className="bg-white/10 border-white/20 p-4 rounded-2xl col-span-1 sm:col-span-2 lg:col-span-4">
                     <CardHeader className="p-0 mb-2">
                         <CardTitle className="text-sm font-medium text-white/80">Sunrise & Sunset</CardTitle>
                     </CardHeader>
@@ -80,8 +80,8 @@ export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDis
             </div>
         </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl lg:col-span-2">
             <CardHeader className="p-0 mb-4">
                 <CardTitle className="text-lg font-semibold">Hourly Forecast</CardTitle>
             </CardHeader>
