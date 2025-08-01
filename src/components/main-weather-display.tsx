@@ -62,7 +62,7 @@ export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDis
                     <CardHeader className="p-0 mb-2">
                         <CardTitle className="text-sm font-medium text-white/80">Sunrise & Sunset</CardTitle>
                     </CardHeader>
-                    <CardContent className="p-0 flex flex-col items-center justify-center gap-2">
+                    <CardContent className="p-0 flex flex-col items-start justify-center gap-2">
                         <div className="flex items-center gap-2">
                             <Sunrise className="w-6 h-6 text-yellow-300" />
                             <div>
