@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
@@ -13,50 +14,10 @@ import { Search, AlertCircle } from "lucide-react";
 import { WeatherIcon } from "./weather-icon";
 import { format } from "date-fns";
 
-const getWindDirection = (deg: number) => {
-  const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-  return directions[Math.round(deg / 45) % 8];
-};
 
-const getUVIndexCategory = (uvi: number) => {
-  if (uvi < 3) return "Low";
-  if (uvi < 6) return "Moderate";
-  if (uvi < 8) return "High";
-  if (uvi < 11) return "Very High";
-  return "Extreme";
-};
-
-const getWeatherGradient = (weatherMain: string) => {
-  switch (weatherMain.toLowerCase()) {
-    case "clear":
-      return "from-yellow-400 to-orange-500";
-    case "clouds":
-      return "from-blue-400 to-gray-500";
-    case "rain":
-    case "drizzle":
-      return "from-indigo-500 to-purple-600";
-    case "thunderstorm":
-      return "from-gray-700 to-indigo-800";
-    case "snow":
-      return "from-sky-300 to-blue-400";
-    case "mist":
-    case "smoke":
-    case "haze":
-    case "dust":
-    case "fog":
-    case "sand":
-    case "ash":
-    case "squall":
-    case "tornado":
-      return "from-slate-400 to-gray-500";
-    default:
-      return "from-blue-500 to-indigo-600";
-  }
-};
-
-export function WeatherDashboard() {
-  const [city, setCity] = useState("Dhaka");
-  const [searchTerm, setSearchTerm] = useState("Dhaka");
+export function WeatherDashboard({ initialCity, onCityChange }: { initialCity: string, onCityChange: (city: string) => void }) {
+  const [city, setCity] = useState(initialCity);
+  const [searchTerm, setSearchTerm] = useState(initialCity);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [forecastList, setForecastList] = useState<ForecastItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,7 +31,6 @@ export function WeatherDashboard() {
       const { weather, forecast } = await getWeatherAndForecast(targetCity);
       setWeatherData(weather);
 
-      // Filter for daily forecast (one per day around noon)
       const dailyForecasts = forecast.list.filter((item) =>
         item.dt_txt.includes("12:00:00")
       );
@@ -78,6 +38,7 @@ export function WeatherDashboard() {
 
       setCity(weather.name);
       setSearchTerm(weather.name);
+      onCityChange(weather.name);
     } catch (err: any) {
       setError(
         err.message || "Failed to fetch weather data. Please try again."
@@ -85,11 +46,15 @@ export function WeatherDashboard() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [onCityChange]);
 
   useEffect(() => {
-    fetchWeatherData(city);
-  }, [fetchWeatherData, city]);
+    if (initialCity) {
+      setCity(initialCity);
+      setSearchTerm(initialCity);
+      fetchWeatherData(initialCity);
+    }
+  }, [initialCity, fetchWeatherData]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -100,30 +65,26 @@ export function WeatherDashboard() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchTerm) {
-      setCity(searchTerm);
+    if (searchTerm && searchTerm.toLowerCase() !== city.toLowerCase()) {
+      fetchWeatherData(searchTerm);
     }
   };
-  
-  const weatherGradientClass = weatherData
-    ? getWeatherGradient(weatherData.weather[0].main)
-    : "from-gray-500 to-gray-700";
 
   return (
-    <div className="w-full max-w-sm font-sans">
+    <div className="w-full max-w-sm font-sans text-white">
        <form onSubmit={handleSearch} className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-200" />
             <Input
               type="text"
               placeholder="Search for a city..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border rounded-full shadow-sm focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2 bg-white/20 border-white/30 rounded-full shadow-sm placeholder-gray-200 focus:ring-2 focus:ring-white"
             />
         </form>
 
       {error && (
-        <Alert variant="destructive" className="mb-4">
+        <Alert variant="destructive" className="mb-4 bg-red-500/80 border-red-700 text-white">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Error</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
@@ -133,8 +94,7 @@ export function WeatherDashboard() {
       {loading ? (
         <WeatherCardSkeleton />
       ) : weatherData ? (
-        <div className={`relative bg-gradient-to-br ${weatherGradientClass} text-white rounded-3xl p-6 shadow-lg overflow-hidden`}>
-          <div className="absolute top-0 left-0 w-full h-full bg-black/10"></div>
+        <div className="relative bg-transparent p-6">
           <div className="relative z-10">
             <div className="flex justify-between items-start">
               <div>
@@ -175,30 +135,30 @@ export function WeatherDashboard() {
 
 function WeatherCardSkeleton() {
     return (
-        <div className="bg-gray-300 animate-pulse rounded-3xl p-6 shadow-lg">
+        <div className="bg-white/10 animate-pulse rounded-3xl p-6 shadow-lg">
             <div className="flex justify-between items-start">
                 <div>
                     <div className="flex items-center gap-2">
-                        <Skeleton className="w-8 h-8 rounded-full" />
-                        <Skeleton className="h-6 w-24 rounded-md" />
+                        <Skeleton className="w-8 h-8 rounded-full bg-white/20" />
+                        <Skeleton className="h-6 w-24 rounded-md bg-white/20" />
                     </div>
-                    <Skeleton className="h-20 w-32 mt-2 rounded-md" />
-                    <Skeleton className="h-6 w-20 mt-2 rounded-md" />
+                    <Skeleton className="h-20 w-32 mt-2 rounded-md bg-white/20" />
+                    <Skeleton className="h-6 w-20 mt-2 rounded-md bg-white/20" />
                 </div>
                 <div className="text-right">
-                    <Skeleton className="h-10 w-24 rounded-md" />
-                    <Skeleton className="h-5 w-28 mt-1 rounded-md" />
-                    <Skeleton className="h-6 w-20 mt-4 rounded-md" />
+                    <Skeleton className="h-10 w-24 rounded-md bg-white/20" />
+                    <Skeleton className="h-5 w-28 mt-1 rounded-md bg-white/20" />
+                    <Skeleton className="h-6 w-20 mt-4 rounded-md bg-white/20" />
                 </div>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-gray-400/50">
+            <div className="mt-8 pt-4 border-t border-white/20">
                 <div className="grid grid-cols-5 gap-2 text-center">
                     {Array.from({ length: 5 }).map((_, i) => (
                         <div key={i} className="flex flex-col items-center">
-                            <Skeleton className="h-5 w-10 rounded-md" />
-                            <Skeleton className="w-8 h-8 my-1 rounded-full" />
-                            <Skeleton className="h-5 w-8 rounded-md" />
+                            <Skeleton className="h-5 w-10 rounded-md bg-white/20" />
+                            <Skeleton className="w-8 h-8 my-1 rounded-full bg-white/20" />
+                            <Skeleton className="h-5 w-8 rounded-md bg-white/20" />
                         </div>
                     ))}
                 </div>
