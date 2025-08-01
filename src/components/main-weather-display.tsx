@@ -6,6 +6,7 @@ import { WeatherIcon } from './weather-icon';
 import { WeatherData, ForecastData } from '@/lib/weather';
 import { format } from 'date-fns';
 import { SearchInput } from './search-input';
+import { ForecastChart } from './forecast-chart';
 
 interface MainWeatherDisplayProps {
   weatherData: WeatherData;
@@ -17,11 +18,9 @@ export function MainWeatherDisplay({ weatherData, forecastData, onSearch }: Main
   const dailyForecasts = forecastData.list.filter((item) =>
     item.dt_txt.includes("12:00:00")
   ).slice(0, 5);
-
-  const hourlyForecast = forecastData.list.slice(1, 6);
   
   return (
-    <main className="flex-1 p-6 bg-white dark:bg-gray-800 rounded-t-3xl md:rounded-t-none md:rounded-l-3xl overflow-y-auto">
+    <main className="flex-1 p-6 bg-white dark:bg-gray-800 rounded-t-3xl md:rounded-t-none md:rounded-r-3xl overflow-y-auto">
       <div className="hidden md:flex justify-between items-center mb-6">
         <h1 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Weather Forecast</h1>
         <div className="w-full md:w-auto">
@@ -34,16 +33,8 @@ export function MainWeatherDisplay({ weatherData, forecastData, onSearch }: Main
       </div>
       
       <div>
-        <h2 className="font-semibold text-gray-700 dark:text-gray-300 mb-4">Later Today</h2>
-        <div className="grid grid-cols-5 gap-2 text-center">
-          {hourlyForecast.map((item, index) => (
-            <Card key={index} className="bg-gray-100 dark:bg-gray-700/50 border-none p-3 rounded-lg flex flex-col items-center justify-center">
-              <p className="text-sm text-gray-600 dark:text-gray-400">{format(new Date(item.dt_txt), "HH:mm")}</p>
-              <WeatherIcon iconCode={item.weather[0].icon} className="w-8 h-8 my-1 text-gray-700 dark:text-gray-300" />
-              <p className="font-bold text-lg text-gray-800 dark:text-white">{Math.round(item.main.temp)}°</p>
-            </Card>
-          ))}
-        </div>
+        <h2 className="font-semibold text-gray-700 dark:text-gray-300 mb-4">Hourly Forecast</h2>
+        <ForecastChart forecastData={forecastData} />
       </div>
 
       <div className="mt-8">
