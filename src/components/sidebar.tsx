@@ -70,7 +70,7 @@ export function Sidebar({ weatherData, otherCities, onCitySelect, onSearch }: Si
                 <Card 
                     key={city.name} 
                     onClick={() => onCitySelect(city.name)}
-                     className={`p-3 bg-white/10 border-none cursor-pointer hover:bg-white/20 transition-all duration-300 rounded-lg ${city.name === weatherData.name ? 'ring-2 ring-white/80 bg-white/20' : ''} ${city.name.toLowerCase() === 'depok' ? '' : 'md:flex'}`}
+                     className={`p-3 bg-white/10 border-none cursor-pointer hover:bg-white/20 transition-all duration-300 rounded-lg ${city.name === weatherData.name ? 'ring-2 ring-white/80 bg-white/20' : ''}`}
                 >
                   <div className="flex justify-between items-center">
                     <div>
