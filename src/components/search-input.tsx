@@ -66,7 +66,7 @@ export function SearchInput({ onSearch }: SearchInputProps) {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   onFocus={() => setShowSuggestions(searchTerm.length > 1)}
-                  className="w-full pl-11 pr-4 py-2 bg-white/10 border-white/20 rounded-full shadow-sm placeholder:text-white/60 focus:ring-2 focus:ring-white/80 text-white"
+                  className="w-full pl-11 pr-4 py-2 bg-white/10 border-white/20 rounded-full shadow-sm placeholder:text-white/60 focus:ring-2 focus:ring-white text-white"
                   autoComplete="off"
                 />
             </form>
