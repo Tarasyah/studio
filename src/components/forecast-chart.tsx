@@ -24,7 +24,7 @@ export function ForecastChart({ forecastData }: ForecastChartProps) {
     }));
 
   return (
-    <div className="h-48 -ml-4">
+    <div className="h-64 -ml-4">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={hourlyData}
