@@ -80,8 +80,8 @@ export function MainWeatherDisplay({ weatherData, forecastData }: MainWeatherDis
             </div>
         </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl lg:col-span-2">
+      <div className="grid grid-cols-1 gap-6">
+        <Card className="bg-white/10 border-white/20 p-4 rounded-2xl">
             <CardHeader className="p-0 mb-4">
                 <CardTitle className="text-lg font-semibold">Hourly Forecast</CardTitle>
             </CardHeader>
