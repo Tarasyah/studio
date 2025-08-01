@@ -118,6 +118,7 @@ export function WeatherDashboard() {
        <div className="flex flex-col md:flex-row w-full h-full bg-black/10 backdrop-blur-sm">
         <Sidebar
           weatherData={weatherData}
+          forecastData={forecastData}
           otherCities={otherCities}
           onCitySelect={handleCityChange}
           onSearch={handleCityChange}

@@ -3,7 +3,7 @@
 import React from 'react';
 import { Card } from './ui/card';
 import { WeatherIcon } from './weather-icon';
-import { OtherCityData, WeatherData } from '@/lib/weather';
+import { OtherCityData, WeatherData, ForecastData } from '@/lib/weather';
 import { format } from 'date-fns';
 import { MapPin, Menu, Droplets, Wind } from 'lucide-react';
 import { Button } from './ui/button';
@@ -12,12 +12,13 @@ import { SearchInput } from './search-input';
 
 interface SidebarProps {
   weatherData: WeatherData;
+  forecastData: ForecastData;
   otherCities: OtherCityData[];
   onCitySelect: (city: string) => void;
   onSearch: (city: string) => void;
 }
 
-export function Sidebar({ weatherData, otherCities, onCitySelect, onSearch }: SidebarProps) {
+export function Sidebar({ weatherData, forecastData, otherCities, onCitySelect, onSearch }: SidebarProps) {
 
   const sidebarContent = (
     <div className="flex flex-col h-full text-white p-6 bg-white/10 md:bg-transparent">
@@ -75,7 +76,7 @@ export function Sidebar({ weatherData, otherCities, onCitySelect, onSearch }: Si
       <div className="grid grid-cols-2 gap-4 text-center">
           <div className="bg-white/10 rounded-xl p-3">
               <Droplets className="w-6 h-6 mx-auto mb-1 text-white/80"/>
-              <p className="font-semibold">{forecastData.list[0].pop * 100}%</p>
+              <p className="font-semibold">{Math.round(forecastData.list[0].pop * 100)}%</p>
               <p className="text-xs text-white/70">Chance of rain</p>
           </div>
           <div className="bg-white/10 rounded-xl p-3">
