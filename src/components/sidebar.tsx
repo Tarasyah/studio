@@ -21,14 +21,14 @@ export function Sidebar({ weatherData, otherCities, onCitySelect, onSearch }: Si
   return (
     <aside className="w-full md:w-1/3 lg:w-1/4 p-4 md:p-6 text-white flex flex-col gap-6">
       {/* Current Weather */}
-      <Card className="bg-white/10 border-white/20 p-6 flex flex-col items-center text-center rounded-2xl">
-          <h1 className="text-2xl font-bold">{weatherData.name}</h1>
-          <p className="text-white/80">{format(new Date(), "EEEE, h:mm a")}</p>
-          <div className="my-6">
-              <WeatherIcon iconCode={weatherData.weather[0].icon} className="w-28 h-28" />
+      <Card className="bg-white/10 border-white/20 p-4 flex flex-col items-center text-center rounded-2xl">
+          <h1 className="text-xl font-bold">{weatherData.name}</h1>
+          <p className="text-sm text-white/80">{format(new Date(), "EEEE, h:mm a")}</p>
+          <div className="my-4">
+              <WeatherIcon iconCode={weatherData.weather[0].icon} className="w-24 h-24" />
           </div>
-          <p className="text-6xl font-bold tracking-tighter">{Math.round(weatherData.main.temp)}°C</p>
-          <p className="text-lg font-medium capitalize mt-2 text-white/90">{weatherData.weather[0].description}</p>
+          <p className="text-5xl font-bold tracking-tighter">{Math.round(weatherData.main.temp)}°C</p>
+          <p className="text-base font-medium capitalize mt-2 text-white/90">{weatherData.weather[0].description}</p>
       </Card>
       
       {/* Search */}
