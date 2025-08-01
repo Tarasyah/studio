@@ -23,7 +23,7 @@ export function WeatherDashboard() {
   const [isAnimating, setIsAnimating] = useState(false);
   const { toast } = useToast();
 
-  const otherCitiesList = ["New York", "London", "Tokyo", "Paris", "Sydney", "Jakarta"];
+  const otherCitiesList = ["New York", "London", "Tokyo", "Paris", "Sydney", "Jakarta", "Mecca"];
 
   const fetchAllWeatherData = useCallback(
     async (city: string) => {
